@@ -10,12 +10,12 @@ const args = process.argv.slice(2);
 const flag = (name) => { const i = args.indexOf(name); return i < 0 ? null : args.splice(i, 2)[1]; };
 const stats = flag('--stats'), stills = flag('--stills');
 const out = resolve(args[0] || 'out/loadbearing.mp4');
-const FPS = 60, TAIL = 4.2;
+const FPS = 60, TAIL = 2.6;
 await mkdir(dirname(out), { recursive: true });
 
 const { server, url } = await serve(new URL('..', import.meta.url).pathname);
 const browser = await chromium.launch({ executablePath: CHROME });
-const page = await browser.newPage({ viewport: { width: 1080, height: 1080 } });
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 page.on('pageerror', (e) => console.error('[page error]', e.message));
 await page.goto(`${url}/video/video.html${stats ? '?stats=' + encodeURIComponent(stats) : ''}`);
 await page.waitForFunction('window.ready');

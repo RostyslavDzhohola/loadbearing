@@ -9,10 +9,11 @@ for a coffee. At 100% the train crosses the bridge.
 
 ![The crew building the bridge](media/loadbearing.gif)
 
-[Watch the 27-second video with sound](media/loadbearing.mp4)
+[Watch the video with sound](media/loadbearing.mp4)
 
-One file, no dependencies, no build step, no image or audio assets. The pixel
-art is drawn with `fillRect` and the sound is synthesized with WebAudio.
+One file, no dependencies, no build step, no image or audio assets. The scene
+is flat vector art drawn on a canvas at whatever size you give it, and the sound
+is synthesized with WebAudio.
 
 ## Use it
 
@@ -85,7 +86,7 @@ The crew, the dog, the water, the balloon and the sky all react.
 ## How it was made
 
 Claude Fable 5.2 built this in a single Claude Code session from one prompt:
-the simulation, the pixel art, the sound synth, the demo page, the promo video
+the simulation, the artwork, the sound synth, the demo page, the promo video
 and this README. Session total: **about 7 million tokens and under $9** at API
 list prices. Most of those tokens are cached context being re-read on each
 step; the model wrote roughly 95,000 of them.
@@ -108,8 +109,8 @@ cd video && npm install && node render.mjs out/loadbearing.mp4
 ## Credit
 
 Inspired by [@noclipepe's loading bar](https://x.com/noclipepe/status/2119881447687569842),
-where tiny workers build the bar brick by brick. This is a separate
-implementation with its own art, scene and code.
+where tiny pixel-art workers build the bar brick by brick. This one has its own
+scene, art style and code.
 
 ## License
 
