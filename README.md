@@ -85,11 +85,12 @@ The crew, the dog, the water, the balloon and the sky all react.
 
 ## How it was made
 
-Claude Fable 5.2 built this in a single Claude Code session from one prompt:
+Claude Fable 5.2 built this in a single Claude Code session, from one prompt
+plus one round of feedback on the art style:
 the simulation, the artwork, the sound synth, the demo page, the promo video
-and this README. Session total: **about 7 million tokens and under $9** at API
+and this README. Session total: **about 9 million tokens and about $10** at API
 list prices. Most of those tokens are cached context being re-read on each
-step; the model wrote roughly 95,000 of them.
+step; the model wrote roughly 120,000 of them.
 
 That figure comes from [`tools/session-cost.mjs`](tools/session-cost.mjs), which
 sums the usage recorded in a Claude Code session transcript:
