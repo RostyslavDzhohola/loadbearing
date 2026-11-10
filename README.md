@@ -12,8 +12,8 @@ for a coffee. At 100% the train crosses the bridge.
 [Watch the video with sound](media/loadbearing.mp4)
 
 One file, no dependencies, no build step, no image or audio assets. The scene
-is drawn on a canvas like a page from a sketchbook: wobbly ink lines that are
-redrawn eight times a second, with loose washes of colour. The sound is
+is painted on a canvas in a hand-painted animation-film style: towering clouds,
+lush hills and a straw-hatted crew, lit from dawn to night. The sound is
 synthesized with WebAudio.
 
 ## Use it
@@ -87,11 +87,11 @@ The crew, the dog, the water, the balloon and the sky all react.
 ## How it was made
 
 Claude Fable 5.2 built this in a single Claude Code session, from one prompt
-plus two rounds of feedback on the art style:
+plus three rounds of feedback on the art style:
 the simulation, the artwork, the sound synth, the demo page, the promo video
-and this README. Session total: **about 11 million tokens and about $15** at API
+and this README. Session total: **about 12 million tokens and about $17** at API
 list prices. Most of those tokens are cached context being re-read on each
-step; the model wrote roughly 165,000 of them.
+step; the model wrote roughly 200,000 of them.
 
 That figure comes from [`tools/session-cost.mjs`](tools/session-cost.mjs), which
 sums the usage recorded in a Claude Code session transcript:
@@ -112,7 +112,7 @@ cd video && npm install && node render.mjs out/loadbearing.mp4
 
 Inspired by [@noclipepe's loading bar](https://x.com/noclipepe/status/2119881447687569842),
 where tiny pixel-art workers build the bar brick by brick. This one has its own
-scene, hand-drawn art style and code.
+scene, painted art style and code.
 
 ## License
 
