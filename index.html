@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>loadbearing — a loading bar built by a tiny bridge crew</title>
+<meta name="description" content="An open-source loading bar where a tiny pixel crew builds a bridge as your progress grows. When progress stalls, they take a coffee break.">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100svh; display: grid; place-items: center;
+    background: radial-gradient(1200px 600px at 50% 35%, #1b2030, #0c0e16 70%);
+    color: #e8ebf2; font: 16px/1.4 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { width: min(760px, 92vw); text-align: center; padding: 40px 0; }
+  load-bearing { width: 100%; }
+  h1 { font-size: 22px; font-weight: 650; margin: 34px 0 4px; font-variant-numeric: tabular-nums; }
+  p { margin: 0; color: #8d95a8; }
+  .row { margin-top: 30px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; align-items: center; }
+  button, a.btn {
+    font: inherit; color: #e8ebf2; background: #1c2233; border: 1px solid #2f3850; border-radius: 999px;
+    padding: 8px 16px; cursor: pointer; text-decoration: none;
+  }
+  button:hover, a.btn:hover { background: #262e44; }
+  button[aria-pressed="true"] { background: #f7c531; color: #161b28; border-color: #f7c531; }
+  input[type=range] { width: 200px; accent-color: #f7c531; }
+  label { color: #8d95a8; display: none; gap: 10px; align-items: center; }
+  label.on { display: inline-flex; }
+</style>
+</head>
+<body>
+<main>
+  <load-bearing id="bar" demo></load-bearing>
+  <h1 id="status">Laying the groundwork…</h1>
+  <p id="hint">Tap the crew, the dog, the water or the balloon.</p>
+  <div class="row">
+    <button id="sound" aria-pressed="false">Sound off</button>
+    <button id="mode" aria-pressed="false">Drive it yourself</button>
+    <label id="drive">progress <input id="range" type="range" min="0" max="100" value="0"></label>
+    <a class="btn" href="https://github.com/RostyslavDzhohola/loadbearing">GitHub</a>
+  </div>
+</main>
+<script type="module">
+  import './loadbearing.js';
+  const bar = document.getElementById('bar'), status = document.getElementById('status');
+  const L = bar.loader;
+  let arrived = false;
+
+  function label() {
+    const p = L.percent;
+    if (arrived) return 'Update installed.';
+    if (p >= 100) return 'All aboard!';
+    if (L.stalled) return `Connection lost. Crew's on a coffee break. ${p}%`;
+    const msg = p < 30 ? 'Laying the groundwork…' : p < 60 ? 'Bridging the gap…' : p < 90 ? 'Spanning the last stretch…' : 'Almost there…';
+    return `${msg} ${p}%`;
+  }
+  for (const type of ['progress', 'stall', 'resume', 'done', 'arrived']) {
+    bar.addEventListener(type, () => {
+      if (type === 'arrived') { arrived = true; setTimeout(() => (arrived = false), 3200); }
+      status.textContent = label();
+    });
+  }
+
+  const sound = document.getElementById('sound');
+  sound.onclick = () => {
+    const on = sound.getAttribute('aria-pressed') !== 'true';
+    bar.enableSound(on);
+    sound.setAttribute('aria-pressed', on);
+    sound.textContent = on ? 'Sound on' : 'Sound off';
+  };
+
+  // "Drive it yourself": the slider stands in for your app's real progress.
+  const mode = document.getElementById('mode'), drive = document.getElementById('drive'), range = document.getElementById('range');
+  mode.onclick = () => {
+    const manual = mode.getAttribute('aria-pressed') !== 'true';
+    mode.setAttribute('aria-pressed', manual);
+    drive.classList.toggle('on', manual);
+    L.o.demo = !manual;
+    L.reset();
+    range.value = 0;
+    arrived = false;
+    status.textContent = label();
+  };
+  range.oninput = () => (bar.progress = range.value / 100);
+</script>
+</body>
+</html>
