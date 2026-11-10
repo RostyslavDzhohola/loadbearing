@@ -9,6 +9,8 @@ for a coffee. At 100% the train crosses the bridge.
 
 ![The crew building the bridge](media/loadbearing.gif)
 
+[Watch the 27-second video with sound](media/loadbearing.mp4)
+
 One file, no dependencies, no build step, no image or audio assets. The pixel
 art is drawn with `fillRect` and the sound is synthesized with WebAudio.
 
@@ -84,8 +86,9 @@ The crew, the dog, the water, the balloon and the sky all react.
 
 Claude Fable 5.2 built this in a single Claude Code session from one prompt:
 the simulation, the pixel art, the sound synth, the demo page, the promo video
-and this README. Session total: **{{TOKENS}} tokens, ${{COST}}** at API list
-prices.
+and this README. Session total: **about 7 million tokens and under $9** at API
+list prices. Most of those tokens are cached context being re-read on each
+step; the model wrote roughly 95,000 of them.
 
 That figure comes from [`tools/session-cost.mjs`](tools/session-cost.mjs), which
 sums the usage recorded in a Claude Code session transcript:
